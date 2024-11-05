@@ -13,19 +13,19 @@ spec:
         app: flask-todo-app
     spec:
       containers:
-      - name: flask-todo-app
-        image: sonu10/todo-flask-app
-        ports:
-        - containerPort: 5000
-        volumeMounts:
-        - name: todo-persistent-storage
-          mountPath: /instance
+        - name: flask-todo-app
+          image: sonu10/todo-flask-app:latest
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: todo-persistent-storage
+              mountPath: /instance
       volumes:
-      - name: todo-persistent-storage
-        azureFile:
-          secretName: azure-secret
-          shareName: todo
-          readOnly: false
+        - name: todo-persistent-storage
+          azureFile:
+            secretName: azure-secret
+            shareName: todo
+            readOnly: false
 
 ---
 apiVersion: v1
@@ -37,6 +37,6 @@ spec:
   selector:
     app: flask-todo-app
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 5000
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
