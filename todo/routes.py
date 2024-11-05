@@ -1,5 +1,6 @@
 from flask import Blueprint, request, redirect, url_for, render_template
 from todo.models import Task, db
+import socket
 
 main = Blueprint('main', __name__)
 
@@ -40,5 +41,11 @@ def delete_task(task_id):
         db.session.delete(task)  # Delete the task
         db.session.commit()
     return redirect(url_for('main.index'))
+
+@main.route('/')
+def index():
+    # Get the IP address of the server
+    ip_address = socket.gethostbyname(socket.gethostname())
+    return render_template('index.html', ip_address=ip_address)
 
 
