@@ -37,4 +37,4 @@ jobs:
 
     - name: Deploy to AKS
       run: |
-        kubectl apply -f deployment.yaml
+        kubectl apply -f deployment.yml
